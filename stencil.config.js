@@ -1,7 +1,7 @@
 exports.config = {
   generateCollection: true,
   bundles: [
-    { components: ['bs-badge'] }
+    { components: ['bs-badge', 'bs-button'] }
   ]
 };
 

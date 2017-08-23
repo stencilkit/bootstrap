@@ -1,12 +1,13 @@
 import { Component, Prop, PropDidChange, State } from '@stencil/core';
 
+import { isColor } from '../../util/util';
+
 @Component({
-  tag: 'bs-badge',
-  styleUrl: 'bs-badge.scss'
+  tag: 'bs-badge'
 })
 export class BsBadge {
 
-  @State() themeColor: boolean = false;
+  @State() private themeColor: boolean = false;
 
   @Prop() color: string;
 
@@ -16,10 +17,7 @@ export class BsBadge {
 
   @PropDidChange('color')
   colorChanged() {
-    let m = false;
-    m = (this.color.substr(0, 1) == '#') || (this.color.substr(0, 3) == 'rgb');
-    console.log(m);
-    if (m) {
+    if (isColor(this.color || '')) {
       this.themeColor = false;
     } else {
       this.themeColor = true;
@@ -27,20 +25,12 @@ export class BsBadge {
   }
 
   componentDidLoad() {
-    let m = false;
-    m = (this.color.substr(0, 1) == '#') || (this.color.substr(0, 3) == 'rgb');
-    console.log(m);
-    if (m) {
-      this.themeColor = false;
-    } else {
-      this.themeColor = true;
-    }
+    this.colorChanged();
   }
 
   render() {
     let styles = {};
     let classes = {};
-    console.log(this.themeColor);
     if (this.color && !this.themeColor) {
       styles = {
         'background-color': this.color
@@ -49,7 +39,6 @@ export class BsBadge {
     if (this.color && this.themeColor) {
       classes['badge-' + this.color] = true;
     }
-    console.log(styles, classes);
     if (!this.href) {
       return (
         <span class={{ "badge": true, 'pill': this.pill, ...classes }} style={styles}>
@@ -58,11 +47,9 @@ export class BsBadge {
       )
     } else {
       return (
-        <span class={{ "badge": true, 'pill': this.pill, ...classes }} style={styles}>
-          <a href={this.href}>
-            <slot />
-          </a>
-        </span>
+        <a href={this.href} class={{ "badge": true, 'pill': this.pill, ...classes }} style={styles}>
+          <slot />
+        </a>
       )
     }
   }
