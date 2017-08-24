@@ -1,13 +1,9 @@
-import { Component, Prop, PropDidChange, State } from '@stencil/core';
-
-import { isColor } from '../../util/util';
+import { Component, Prop } from '@stencil/core';
 
 @Component({
   tag: 'bs-button'
 })
 export class BsButton {
-
-  @State() themeColor: boolean = false;
 
   @Prop() color: string;
 
