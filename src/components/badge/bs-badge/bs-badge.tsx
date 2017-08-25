@@ -1,13 +1,11 @@
 import { Component, Prop, PropDidChange, State } from '@stencil/core';
 
-import { isColor } from '../../util/util';
+import { isColor } from '../../../util/util';
 
 @Component({
   tag: 'bs-badge'
 })
 export class BsBadge {
-
-  @State() private themeColor: boolean = false;
 
   @Prop() color: string;
 
@@ -15,28 +13,10 @@ export class BsBadge {
 
   @Prop() pill: boolean;
 
-  @PropDidChange('color')
-  colorChanged() {
-    if (isColor(this.color || '')) {
-      this.themeColor = false;
-    } else {
-      this.themeColor = true;
-    }
-  }
-
-  componentDidLoad() {
-    this.colorChanged();
-  }
-
   render() {
     let styles = {};
     let classes = {};
-    if (this.color && !this.themeColor) {
-      styles = {
-        'background-color': this.color
-      }
-    }
-    if (this.color && this.themeColor) {
+    if (this.color) {
       classes['badge-' + this.color] = true;
     }
     if (!this.href) {

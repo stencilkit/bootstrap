@@ -3,7 +3,7 @@ StencilKit makes components from your favorite web frameworks. This repository h
 
 | Component    | Status                   |
 | ------------ | ------------------------ |
-| Alert        | Not started              |
+| Alert        | Needs testing            |
 | Badge        | Needs testing            |
 | Breadcrumb   | In progress              |
 | Buttons      | Needs testing            |
